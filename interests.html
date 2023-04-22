@@ -1,0 +1,79 @@
+
+<link rel="stylesheet" href="tags.css">
+<div class="tag-input">
+  <div class="input">
+    <label for="tag-ip">
+      Enter some tags about yourself! (Press enter after each tag)
+    </label>
+    <div>
+      <i class="fa fa-tags"></i>
+      <input type="text" id="tag-ip" placeholder="Enter tags">
+    </div>
+  </div>
+  <div class="tag-list"></div>
+  <script src="tags.js"></script>
+  <br><input id="interestBtn" class="button-3" type="button" value="Create Profile"/>
+  <script type="module">
+  
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+    import { getStorage,  uploadBytes, getDownloadURL, ref as sRef  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
+  
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
+      authDomain: "friendup-74935.firebaseapp.com",
+      projectId: "friendup-74935",
+      storageBucket: "friendup-74935.appspot.com",
+      messagingSenderId: "97865803459",
+      appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
+      measurementId: "G-JHX6HNC0ST"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const storage = getStorage(app);
+    var email = "Lforger@gmail.com"; //document.getElementById("username").value
+    //var password = document.getElementById("password").value
+    var uniqname = "0";
+    
+    const db = getDatabase();
+    const userTableGet = ref(db, uniqname);
+    onValue(userTableGet, (snapshot) => {
+    
+    const data = snapshot.val();
+    pageOnLoad(data);
+  });
+   
+  var stringTags = "";
+  function updateInterests()
+  {
+    
+    
+    tags.forEach(makeString);
+    
+    var interests = stringTags.slice(0, -2);
+    console.log(interests);
+    update(ref(db, "users/" + sessionStorage.getItem('un')), {
+    Interests:interests,
+    
+    });
+
+    window.location.href = "mainPage.html";
+
+  }
+  
+  function makeString(item){
+    stringTags += item + ", ";
+  }
+  
+  var interestBtn = document.querySelector('#interestBtn');
+  interestBtn.addEventListener('click', updateInterests);
+
+  
+
+  </script>  
+
+</div>

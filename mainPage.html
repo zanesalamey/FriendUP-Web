@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>friendUp</title>
+<meta charset="UTF-8">
+<style>
+  #endOfdbPage{display:none}
+  #coffeeGuy{display:block}
+  #friendPending{display:none}
+  #userProfile {display: none}
+  #settings{display: none}
+  #chatbox{display:none}
+  #otherFriended{display:none}
+  #alertBox{display:none}
+</style>
+
+<!--Need last added user. Need friendPending-->
+
+<script src="thumbsUpHandler.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="https://i.pinimg.com/564x/c6/b8/d4/c6b8d40a0af2b06eafc9b8c2d7ba30d2.jpg">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
+</style>
+</head>
+<body style = "background-color:#003166" onload="sideMenu={profileOpen:false,settingsOpen:false,chatOpen:false, frenProfileOpen:false}">
+
+  <script> window.email3; </script>
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+  <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+</div>
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+      <div class="w3-col m3">
+          <!-- Profile -->
+          <div class="w3-card w3-round w3-white">
+          </div>
+          <br>
+
+          <!-- Accordion -->
+          <div class="w3-card w3-round">
+              <div class="w3-white">
+                  <button id='profileClick' onclick="myFunction('Demo4');openProfile(sideMenu,'userProfile','middleColumn','settings');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+                  <div id="Demo4" class="w3-hide w3-container">
+                      <div class="w3-container">
+                          <h4 class="w3-center">My Profile</h4>
+                          <p class="w3-center"><img src="" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
+                          <hr>
+                          <p id="proMajor"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
+                          <p id="proLocation"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
+                          <p id="proEmail"><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+                      </div>
+                  </div>
+
+
+                  <!-- Chat Catalogue -->
+                  <link rel="stylesheet" href="friendEntry.css">
+                  <button id = 'friendsChatClick' onclick="myFunction('Demo1'); openChat(sideMenu,'chatbox','coffeeGuy','profile');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
+                  <div id="Demo1" class="w3-hide w3-container"></div>
+                  <!-- Chat Catalog End -->
+
+
+                  <button onclick=" openSettings(sideMenu,'settings','middleColumn','userProfile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+                  <div id="Demo3" class="w3-hide w3-container">
+
+
+                  </div>
+              </div>
+          </div>
+          <br>
+          <div id = "friendPending" class="w3-card w3-round w3-white w3-center">
+            <div class="w3-container">
+              <p>FriendUp!</p>
+              <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
+              <h3 id = "friendPendName"> Jane Doe</h3>
+              <div class="w3-row w3-opacity">
+                <div class="w3-half">
+                 </div>
+                <div class="w3-half">
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
+            <div class="w3-container">
+              <p>friend Pending</p>
+              <img id = "friendPicWaiting" src="" alt="Avatar" style="width:50%"><br>
+              <h3 id = "newFriendName"> Jane Doe</h3>
+              <h3 id = "descrip"> Jane Doe</h3>
+              <h3 id = "email4"> Jane Doe</h3>
+              <div class="w3-row w3-opacity">
+                <div class="w3-half">
+                  <button id = "greenCheck" class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
+                  </div>
+                <div class="w3-half">
+                  <button id = "redX" class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
+                  </div>
+              </div>
+            </div>
+          </div>
+    
+
+          <!-- Alert Box -->
+          <div id="alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+              <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
+                  <i class="fa fa-remove"></i>
+              </span>
+              <p><strong>Hey!</strong></p>
+              <p>friendUp! with a quick chat!</p>
+          </div>
+
+          <!-- End Left Column -->
+      </div>
+    
+    <!-- Middle Column -->
+    
+    <div id="middleColumn" class="w3-col m7">
+    
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+        </div>
+      </div>
+  <!-- Chat Box -->
+  <link rel="stylesheet" href="chatBox.css">
+  <link rel="stylesheet" href="dropdown.css">
+  <div id="chatbox" class="w3-container w3-card w3-white w3-round w3-margin">
+      <br>
+      <!-- Chat Header -->
+      <img id="Header Image" class="w3-left w3-circle w3-margin-right" style="width:100px; height:100px">
+      <br><h3 id="Header Name"></h3>
+      <div class="dropdown">
+          <button id="dropbtn" class="dropbtn">Options</button>
+          <div id="DropDownMenu" class="dropdown-content">
+              <a id="ViewProfile">View Profile</a>
+              <a id="ClearChat">Clear Chat</a>
+              <a id="Unfriend">Unfriend</a>
+          </div>
+      </div>
+
+      <div class="w3-row-padding" style="margin:0 -16px">
+          <div class="container">
+          </div>
+          <hr class="w3-clear">
+
+          <!-- Messages -->
+          <div style="height:370px; overflow:auto" id="messageBody"></div>
+
+      </div>
+
+
+      <br>
+
+      <!-- Message Input -->
+      <form>
+          <input type="text" id="message" name="message" size="80">&nbsp;&nbsp;&nbsp;
+          <button id="SendButton" type="button" class="w3-button w3-theme-d2 w3-margin-bottom">Send</button>
+      </form>
+
+  </div>
+  <!-- End Chatbox -->
+   
+  <!--Display Friends-->
+   <div  id = "profile" style="display:none;" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class = "container">
+        <img id = "profilePicUser" src="" style="width:100%">
+       <div id="Major"></div>
+       <div id="Location"></div>
+       <div id="interests"></div>
+       <div id="profDescription"></div>
+      </div>
+        <hr class="w3-clear">
+
+    </div>
+</div>
+
+
+      <div  id = "coffeeGuy" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <div class="w3-row-padding" style="margin:0 -16px">
+            <div class = "container">
+              <img id = "profilePic" src="" style="width:100%" alt="Northern Lights">
+              <div id = "about" class="bottom-left"> About goes here</div>
+            </div>
+            <p id="email6"> email cheat</p>
+            <h3 id = "userDisplayName">Username Here</h3>
+
+            
+        <hr class="w3-clear">
+        
+        </div>
+        <!--issue-->
+        <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
+        <button id = "thumbsDown" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+      </div>
+      
+      <div id = "endOfdbPage"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <div class="w3-row-padding" style="margin:0 -16px">
+          <div class = "container">
+            <img id = "faviconPic" src=""  alt="friendUpIcon" class = "center">
+            <style>
+              .container img {width: 100%;}
+            </style>
+            
+            <div id = "endOfNote" class="w3-center"> Congratulations! You have seen all potential friends!</div>
+            <style>
+              .w3-center{font-size: 1000%}
+              .w3-center{font-size: 3rem}
+              .w3-center{font-size: 3em}
+              .w3-center{font-size: 30px}
+          </style>
+            <div id = "endOfNote" class="w3-center"> Use the chat feature to levelUP your new friendships</div>
+          </div>
+          
+      
+      <hr class="w3-clear">
+      
+      </div>
+    </div>
+      
+    </div>
+      
+        <!-- Begin profile clicked -->
+
+        <div id = "middleColumnP" class="w3-col m7">
+    
+          <div class="w3-row-padding">
+            <div class="w3-col m12">
+            </div>
+          </div>
+    
+          <div  id = "userProfile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+              <div class="w3-row-padding" style="margin:0 -16px">
+                <div class = "container">
+                  <img id = "profilePicforUser" src="" style="width:100%" alt="Northern Lights">
+                 
+                 <div id="profileDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+                </div>
+                
+                <h3 id = "profId">Coffee Guy AA</h3>
+    
+                
+            <hr class="w3-clear">
+            
+            </div>
+          </div>
+        </div>
+    
+        <!-- End profile clicked-->
+
+               <!-- Begin settings clicked -->
+
+    <div id = "middleColumnS" class="w3-col m7">
+    
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+        </div>
+      </div>
+
+      <div  id = "settings" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <div class="w3-row-padding" style="margin:0 -16px">
+            <div class = "container">
+              <label >Edit First Name: </label><br>
+              <input id = "settingsFirstName" value="FirstNameHolder" style="width: 33%;"></input><br>
+              <label>Edit Last Name: </label><br>
+              <input id = "settingsLastname" value="LastNameHolder" style="width: 33%;"></input><br>
+              <label>Update Description: </label><br>
+             <textarea id="settingsDescription" value="DescriptionHolder" maxlength="500" style="width:100%;height: 80px; border-radius: 3px;overflow-wrap:break-word; resize: none;"></textarea>
+             <label>Change Interests: </label><br>
+             <input id= "settingsInterests" value="settingsHolder" style="width: 33%;"></input><br>
+              <label>Update Profile Picture: </label><br>
+              <input id="submitNewPic" onchange="loadFile(event)" type="file" accept="image/png, image/jpeg"></input><br>
+              <label>Profile Picture Preview</label>
+             <img id = "settingsPicUser"  src="" style="width:100%" alt="Northern Lights"><br>
+             <!-- <div class="top-left">Coffee Guy AA</div>-->
+             
+            </div>            
+
+            <br>
+            <br>
+            <button style="float: left;" id="updateProfileBtn">Update Profile</button>
+        <hr class="w3-clear">
+        
+            <script>
+              var loadFile = function(event) {
+                var output = document.getElementById('settingsPicUser');
+                output.src = URL.createObjectURL(event.target.files[0]);
+
+                output.onload = function() {
+                  URL.revokeObjectURL(output.src) // free memory
+                }
+              };
+            </script>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- End settings clicked-->
+    <!-- End Middle Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-col m3">
+      <div class="w3-card w3-round w3-white w3-center">
+        
+      </div>
+      
+      
+      
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+<!-- End Page Container -->
+</div>
+<br>
+
+
+ 
+<script>
+// Accordion
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-theme-d1";
+  } else { 
+    x.className = x.className.replace("w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-theme-d1", "");
+  }
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+<script type="module">
+  
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue, child, push, update, remove, get, query, limitToLast} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+  import { getStorage,  uploadBytes, getDownloadURL, ref as sRef} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
+
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
+    authDomain: "friendup-74935.firebaseapp.com",
+    projectId: "friendup-74935",
+    storageBucket: "friendup-74935.appspot.com",
+    messagingSenderId: "97865803459",
+    appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
+    measurementId: "G-JHX6HNC0ST"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  const storage = getStorage(app);
+  const user = ref(database, "users");
+  let num = 1;
+  let num2 = 0;
+  let myArray = [];
+  let currentUser = sessionStorage.getItem('un')
+  let endOfDB = false;
+
+        //Universal image function
+        function setImg(email, img)
+        {
+            getDownloadURL(sRef(storage, email)).then((url) => {
+                img.setAttribute('src', url);
+            })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
+
+        // Chat Catalog
+        const friends = ref(database, "Friends/" + currentUser + "/Friends List");
+        onValue(friends, (snapshot) => {
+          const catalog = document.getElementById("Demo1");  
+          if (snapshot.exists())
+            {   
+                catalog.innerHTML = '';
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+
+                    const friendEmail = childData.email;
+                    const uniqname = childData.Name;
+                    const friendKey = childData.ChatKey;
+
+                    const friendContainer = document.createElement("div");
+                    friendContainer.classList.add("friendEntry");
+
+                    friendContainer.addEventListener("click", function () {
+                        displayChat(friendKey, uniqname);
+                    });
+
+                    //Profile Pictures
+
+                    const pfpdiv = document.createElement("div");
+                    const pfp = document.createElement("img");
+
+                    setImg(friendEmail, pfp);
+
+                    pfpdiv.appendChild(pfp);
+
+                    //User Info
+                    const infodiv = document.createElement("div");
+                    infodiv.style = "overflow:hidden";
+
+                    get(child(user, uniqname)).then((snapshot) => {
+
+                        //Usernames
+                        const namediv = document.createElement("div");
+
+                        const username = document.createElement("span");
+                        username.style = "font-size:18px";
+                        username.textContent = snapshot.val().Username;
+
+                        namediv.appendChild(username);
+
+                        //Recent Messages
+
+                        const lastMessage = query(ref(database, "Chat/" + friendKey), limitToLast(1));
+                        const messagediv = document.createElement("div");
+
+                        get(lastMessage).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                snapshot.forEach((childSnapshot) => {
+                                    const childData = childSnapshot.val();
+
+                                    const message = document.createElement("span");
+                                    const time = document.createElement("span");
+                                    time.classList.add("time-right");
+
+                                    message.textContent = childData.Message;
+                                    time.textContent = childData.Timestamp;
+
+                                    messagediv.appendChild(message);
+                                    messagediv.appendChild(time);
+
+                                    infodiv.appendChild(namediv);
+                                    infodiv.appendChild(messagediv);
+
+                                    friendContainer.appendChild(pfpdiv);
+                                    friendContainer.appendChild(infodiv);
+
+                                    catalog.appendChild(friendContainer);
+                                });
+                            }
+                            else
+                            {
+                                //Chatroom is empty
+                                const message = document.createElement("span");
+                                const time = document.createElement("span");
+                                time.classList.add("time-right");
+
+                                message.textContent = "No new messages";
+                                message.style = "color: #aaa;";
+                                time.textContent = "";
+
+                                messagediv.appendChild(message);
+                                messagediv.appendChild(time);
+
+                                infodiv.appendChild(namediv);
+                                infodiv.appendChild(messagediv);
+
+                                friendContainer.appendChild(pfpdiv);
+                                friendContainer.appendChild(infodiv);
+
+                                catalog.appendChild(friendContainer);
+                            }
+
+
+                        });
+
+                    });
+                });
+            }
+            else
+            {
+                //User has no friends :(
+                const noFriends = document.createElement("div");
+                noFriends.textContent = "No friends to show :(";
+                catalog.appendChild(noFriends);
+            }
+        });
+
+        function displayChat(chatKey, friend)
+        {
+            document.getElementById("chatbox").style.display = "block";
+
+            //Chat Header
+            get(child(user, friend)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    //Header Name
+                    const hname = document.getElementById("Header Name");
+                    hname.textContent = snapshot.val().Username;
+
+                    //Profile Picture
+                    const friendEmail = snapshot.val().email;
+
+                    const hpfp = document.getElementById("Header Image");
+
+                    setImg(friendEmail, hpfp)
+                }
+            });
+
+            //Display Messages
+
+            const messages = ref(database, "Chat/" + chatKey);
+
+            const mb = document.getElementById("messageBody");
+
+            var count = 0
+
+            onValue(messages, (snapshot) => {
+
+                count = 0;
+
+                mb.innerHTML = '';
+
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+
+                    const newMsg = document.createElement("div");
+
+                    if (childData.Sender == currentUser) {
+                        newMsg.classList.add("outgoingMessage");
+                    }
+                    else {
+                        newMsg.classList.add("incomingMessage");
+                    }
+
+                    var pfp = document.createElement("img");
+
+                    if (childData.Sender == currentUser)
+                    {
+                        //User Profile Picture
+                        get(child(user, currentUser)).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                const userEmail = snapshot.val().email;
+
+                                setImg(userEmail, pfp);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        //Friend's Profile Picture
+                        get(child(user, friend)).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                const friendEmail = snapshot.val().email;
+
+                                setImg(friendEmail, pfp);
+
+                            }
+                        });
+                    }
+
+                    const text = document.createElement("p")
+                    text.textContent = childData.Message;
+
+                    const time = document.createElement("span");
+
+                    if (childData.Sender == currentUser) {
+                        time.classList.add("time-left");
+                    }
+                    else {
+                        time.classList.add("time-right");
+                    }
+
+                    time.textContent = childData.Timestamp;
+
+                    newMsg.appendChild(pfp);
+                    newMsg.appendChild(text);
+                    newMsg.appendChild(time);
+
+                    mb.appendChild(newMsg);
+
+                    count++;
+
+                    mb.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+                });
+
+                //Clear Chat Button Listener
+                var clear = document.querySelector('#ClearChat');
+                clear.onclick = function () { clearChat(chatKey) };
+
+                //Send Button Listener
+                var send = document.querySelector('#SendButton');
+                send.onclick = function () { SendMessage(chatKey, friend, count) };
+
+                //Unfriend Button Listener
+                var unfriend = document.querySelector('#Unfriend');
+                unfriend.onclick = function () { Unfriend(friend, chatKey) };
+
+                //view friend profile button listener
+                var view = document.querySelector('#ViewProfile');
+                view.onclick = function () { viewProfile(friend) };
+            });
+        }
+
+        //Send Button
+        function SendMessage(chatKey, friend, count)
+        {
+            if (document.getElementById("message").value != "")
+            {
+                const message = document.getElementById("message").value;
+                const d = new Date();
+                let time = d.toLocaleString();
+
+                const newMsg = ref(database, "Chat/" + chatKey + "/" + count);
+                set(newMsg, {
+                    Message: message,
+                    Receiver: friend,
+                    Sender: currentUser,
+                    Timestamp: time
+                });
+
+                //Update Recent Message in friends list entry
+                get(friends).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+
+                            if (childData.Name == friend)
+                            {
+                                console.log(message)
+                                update(ref(database, "Friends/" + currentUser + "/Friends List/" + childKey), {
+                                    recentMsg: message
+                                });
+                            }
+
+                        });
+                    }
+                });
+
+                get(ref(database, "Friends/" + friend + "/Friends List")).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+
+                            if (childData.Name == currentUser)
+                            {
+                                console.log(message)
+                                update(ref(database, "Friends/" + friend + "/Friends List/" + childKey), {
+                                    recentMsg: message
+                                });
+                            }
+                        });
+                    }
+                });
+                
+                document.getElementById("message").value = '';
+            }
+        }
+
+        //Options Button
+        var options = document.querySelector('#dropbtn');
+        options.onclick = function () {dropdown()};
+
+        //Open dropdown menu
+        function dropdown()
+        {
+            document.getElementById("DropDownMenu").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        //Dropdown Menu Options
+                //View Friend Profile
+                function viewProfile(friend)
+        {
+            var updatepage;
+
+            const database = getDatabase();
+            get(friends).then((snapshot) => {
+                if (snapshot.exists())
+                {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+                        
+
+                        if (childData.Name == friend)
+                        {
+                            get(ref(database, "users/" + friend)).then((snapshot) => {
+                
+                            const data = snapshot.val();
+                            updatepage = data
+                            
+                            document.getElementById("profDescription").innerHTML = updatepage.Description 
+
+                            document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
+                            document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
+                            document.getElementById("interests").innerHTML = 'Interests: ' + updatepage.Interests;
+                            const friendEmail = data.email;
+                            const img = document.getElementById("profilePicUser");
+
+                            setImg(friendEmail, img);
+
+                            document.getElementById("profilePicUser").innerHTML   
+                            });
+                            document.getElementById('profile').style.display="inherit"
+
+                        }
+
+                    });
+                }
+            });
+            
+
+        }
+
+        //Clear Chat
+        function clearChat(chatKey)
+        {
+            remove(ref(database, "Chat/" + chatKey));
+        }
+
+        //Unfriend
+        function Unfriend(friend, chatKey)
+        {
+            //Clear Chat
+            clearChat(chatKey);
+
+            //Hide Chat
+            document.getElementById("chatbox").style.display = "none";
+            document.getElementById("profile").style.display = "none";
+            
+            //Delete friend from user's Friends List
+            get(friends).then((snapshot) => {
+                if (snapshot.exists())
+                {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+
+                        if (childData.Name == friend)
+                        {
+                            remove(ref(database, "Friends/" + currentUser + "/Friends List/" + childKey));
+                        }
+                    });
+                }
+            });
+
+            //Delete user from friend's Friends List
+            get(ref(database, "Friends/" + friend + "/Friends List")).then((snapshot) => {
+                if (snapshot.exists())
+                {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+
+                        if (childData.Name == currentUser)
+                        {
+                            remove(ref(database, "Friends/" + friend + "/Friends List/" + childKey));
+                        }
+                    });
+                }
+            });
+          }
+ 
+ let emale = 0;
+ let userArray = [];
+ let dataArray = [];
+ let emailArray = [];
+ let friendPendArray = [];
+ let seenArray = [];
+ let pendNum = 0;
+ let currentUserEmail = sessionStorage.getItem('email');
+ let currentUserName = sessionStorage.getItem('un');
+
+
+  function getData(tableName){
+    const db = getDatabase();
+    const userTableGet = ref(db, tableName);
+    let emails = "";
+      get(ref(database, "users/" + currentUser + "/Seen")).then((snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+              seenArray.push(childSnapshot.val());
+          }); 
+      });
+
+    get(userTableGet).then((snapshot) => {
+        snapshot.forEach(childSnapshot => {
+            if (!seenArray.includes(childSnapshot.key))
+            {
+                if (childSnapshot.key != currentUser)
+                {
+                    userArray.push(childSnapshot.key)
+                    dataArray.push(childSnapshot.val())
+                }
+            }
+            //super costly at high volumes, add in better parameters later
+        });
+
+        if (userArray.length == 0)
+        {
+            endOfDatabase();
+        }
+        else
+        {
+            while (emale < dataArray.length) {
+                emailArray.push(dataArray[emale]["email"])
+                emale = emale + 1;
+            }
+            while (pendNum < dataArray.length) {
+                friendPendArray.push(dataArray[pendNum]["friendsPending"])
+                pendNum = pendNum + 1;
+            }
+
+            emails = pageOnLoad(dataArray, userArray);
+
+            assignPicture(emails);
+            loadNextImg(emailArray);
+            //updatefriendArray(userArray)
+            //incrementIt(userArray);
+            //loadImg(emailArray);
+            //addFriend(userArray);
+        }
+
+
+    });
+  }
+
+
+  function handleNewFriend(data){
+    document.getElementById("newFriendName").innerHTML = data["Username"];
+    document.getElementById("descrip").innerHTML = data["Description"];
+    document.getElementById("email4").innerHTML = data["email"];
+}
+
+//handles friend pending picture assigning
+let incremen = 0;
+function incrementIt(){
+  incremen = incremen + 1;
+ // console.log(incremen)
+}
+
+getData("users");
+
+//let num = 0;
+let myArray3 = [];
+//creates next profile for no function
+function loadNextImg(data) {
+    if (myArray.length == 0) {
+         while (data.length > num2) {
+             myArray[num2] = data[num2]
+             num2 = num2 + 1;
+         }
+    }
+    else {
+
+          let electronicMail = GetEmail();
+            assignPicture(electronicMail);
+
+            if ((num + 1) < (myArray.length)) { num = num + 1; }
+            else { endOfDB = true; }
+
+
+
+        }
+        if (endOfDB == true) {
+            //call function here
+            endOfDatabase();
+        }
+
+
+    }
+
+
+
+//loads image for friend Pending
+//needs cookie once connected
+let myArray2 = [];
+let num4 = 0;
+
+function loadImg(){
+  let electronicMail = GetEmail();
+  //console.log("hi from loadimg "+ electronicMail)
+  getDownloadURL(sRef(storage, electronicMail))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("friendWaiting");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+}
+let userFN = " ";
+let userLN = " ";
+let userEmail = "";
+
+function getEmail(data){
+  userFN = data["FN"];
+  userLN = data["LN"];
+  userEmail = data["email"];
+}
+function load2Img(){
+  let electronicMail = userEmail;
+  document.getElementById("friendPendName").innerHTML = userFN + " " + userLN;
+  //console.log("hi from loadimg "+ electronicMail)
+  getDownloadURL(sRef(storage, electronicMail))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("friendWaiting");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+
+}
+
+let myArray5 = [];
+function loadPending(data){
+
+ let friend2 = data["email"];
+ //console.log(friend2);
+  getDownloadURL(sRef(storage, friend2))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("friendPicWaiting");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+      
+}
+
+function updatefriendArray() {
+  const db = getDatabase();
+const database = getDatabase();
+//console.log(GetUniqname())
+ let currentFriend = GetUniqname();
+  console.log("UpdateFriendArray: " + currentFriend);
+  console.log("UpdateFriendArray: " + currentUserName)
+  let friendPending = currentUserName;
+  update(ref(db, "users/" + currentFriend), {
+    friendsPending: friendPending,
+    isNew: true
+  });
+}
+
+function deletefriendArray() {
+const deleteArray = getDatabase();
+//console.log("in delete friend array");
+//need current user
+     update(ref(deleteArray, "users/" + currentUserName), {
+    friendsPending: "",      
+    isNew: false
+  });
+}
+
+//create div, show when end of database is reached
+function endOfDatabase(){
+var x = document.getElementById("endOfdbPage");
+var y = document.getElementById("coffeeGuy");
+x.style.display = "block"; //show
+y.style.display = "none"; //hide
+document.getElementById("friendPending").style.display = "none";
+
+getDownloadURL(sRef(storage, "favicon"))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("faviconPic");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      }); 
+}
+
+//main picture loading handler for noFunction
+function assignPicture(email3){
+ let Email = email3;
+
+//retrieving image attached to email
+    getDownloadURL(sRef(storage, Email))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("profilePic");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+}
+
+//controls hiding of friend pending
+function showHide(){
+var x = document.getElementById("friendPending");
+x.style.display = "block"; //show
+
+}
+function showHideS(){
+var y = document.getElementById("otherFriended");
+y.style.display = "block"; //show
+}
+
+function showHideSS(){
+var x = document.getElementById("alertBox");
+x.style.display = "block"; //show
+}
+
+function hideShow(){
+var x = document.getElementById("otherFriended");
+x.style.display = "none"; //hide
+}
+
+
+let assignNum = 0;
+let myArray7 = [];
+let friend3 = "";
+let AddFriendUniqname = "";
+let AddFriendEmail = "";
+
+function getNewFrenData(data){
+  
+    AddFriendUniqname = data["uniqname"];
+    AddFriendEmail = data["email"]
+    console.log("getNewFrenData: " + AddFriendUniqname);
+}
+
+
+    function AddFriend() {
+        //Get Friend's Information
+        const uniqname = AddFriendUniqname;
+        const friendEmail = AddFriendEmail;
+        console.log(AddFriendUniqname)
+        const newDB = getDatabase();
+
+        //Create new chat key
+        AddChatKey();
+
+        update(ref(newDB, "users/" + currentUserName), {
+          isNew: false
+          });
+        update(ref(newDB, "users/" + uniqname), {
+          isNew: false
+          });
+
+
+          get(ref(database, "Chat/ChatCount")).then((snapshot) => {
+              const newChatKey = snapshot.val() + 1;
+              console.log("New Chat Key: " + newChatKey);
+
+              //Get Last Friend Key in User's Friends List
+              get(query(ref(database, "Friends/" + currentUser + "/Friends List"), limitToLast(1))).then((snapshot) => {
+                  if (snapshot.exists()) {
+                      snapshot.forEach((childSnapshot) => {
+                          const childKey = childSnapshot.key;
+                          const newFriendKey = parseInt(childKey) + 1;
+
+                          //Add new friend to user's friends list
+                          const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
+                          set(userFriend, {
+                              Name: uniqname,
+                              email: friendEmail,
+                              ChatKey: newChatKey
+                          });
+                      });
+                  }
+                  else //if friends list is empty
+                  {
+                      const newFriendKey = 0;
+
+                      //Add new friend to user's friends list
+                      const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
+                      set(userFriend, {
+                          Name: uniqname,
+                          email: friendEmail,
+                          ChatKey: newChatKey
+                      });
+                  }
+              });
+
+              //Get Last Friend Key in Friend's Friends List
+              get(query(ref(database, "Friends/" + uniqname + "/Friends List"), limitToLast(1))).then((snapshot) => {
+                  if (snapshot.exists()) {
+                      snapshot.forEach((childSnapshot) => {
+                          const childKey = childSnapshot.key;
+                          const newFriendKey = parseInt(childKey) + 1;
+
+                          //Get User's Email
+                          get(child(user, currentUser)).then((snapshot) => {
+                              if (snapshot.exists()) {
+                                  const userEmail = snapshot.val().email;
+                                  console.log(userEmail);
+
+                                  //Add user to new friend's friends list
+                                  const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
+                                  set(friendUser, {
+                                      Name: currentUser,
+                                      email: userEmail,
+                                      ChatKey: newChatKey
+                                  });
+                              }
+                          });
+
+                      });
+                  }
+                  else //if friends list is empty
+                  {
+                      const newFriendKey = 0;
+
+                      //Get User's Email
+                      get(child(user, currentUser)).then((snapshot) => {
+                          if (snapshot.exists()) {
+                              const userEmail = snapshot.val().email;
+
+                              //Add user to new friend's friends list
+                              const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
+                              set(friendUser, {
+                                  Name: currentUser,
+                                  email: userEmail,
+                                  ChatKey: newChatKey
+                              });
+
+                          }
+                      });
+                  }
+              });
+          });
+    }
+
+    //Updates the chat count in the database
+    function AddChatKey() {
+        get(ref(database, "Chat/ChatCount")).then((snapshot) => {
+            const chatCount = snapshot.val();
+
+            const newKey = chatCount + 1;
+
+            update(ref(database, "Chat"), {
+                ChatCount: newKey
+            });
+
+        });
+    }
+
+
+//here
+function loadProfile() {
+  var updatepage
+
+  const starCountRef = ref(database, 'users/' + sessionStorage.getItem('un'));
+    onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    updatepage = data
+    //console.log(data)
+    document.getElementById("profileDescription").innerHTML = data.Description 
+    document.getElementById("proMajor").innerHTML = "Major: " + updatepage.Major
+    document.getElementById("proLocation").innerHTML = "Location: " + updatepage.Location
+    document.getElementById("proEmail").innerHTML = "Email: " + updatepage.email
+  });
+  
+    const img = document.getElementById("profilePicforUser")
+    const miniImg = document.getElementById("miniImage")
+
+    setImg(sessionStorage.getItem('email'), img);
+    setImg(sessionStorage.getItem('email'), miniImg);
+//console.log("from profile")
+  document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
+  document.getElementById("profilePicforUser").innerHTML   
+}
+function loadChatStuff(){
+//console.log("hi")
+
+}
+
+
+function loadSettings()
+{
+
+  const SettingRef = ref(database, 'users/' + sessionStorage.getItem('un'))
+  onValue(SettingRef, (snapshot)=>{
+    const data = snapshot.val()
+    document.getElementById("settingsFirstName").value = data.FN
+    document.getElementById("settingsLastname").value = data.LN
+    document.getElementById("settingsDescription").value = data.Description
+    document.getElementById("settingsInterests").value = data.Interests
+  })
+
+    const img = document.getElementById("settingsPicUser")
+
+    setImg(sessionStorage.getItem('email'), img);
+
+}
+
+function updateSettings()
+{
+   var firstName =  document.getElementById("settingsFirstName").value 
+   var lastName = document.getElementById("settingsLastname").value 
+   var description = document.getElementById("settingsDescription").value 
+   var interests =  document.getElementById("settingsInterests").value
+  update(ref(database, "users/" + sessionStorage.getItem('un')), {
+    FN:firstName,
+    LN:lastName,
+    Description:description,
+    Interests:interests,
+    
+  });
+  var upadateImg = document.getElementById("submitNewPic").files[0]
+  if(upadateImg != undefined){
+  uploadBytes(sRef(storage, sessionStorage.getItem('email')), upadateImg).then((snapshot) => {
+                    console.log('Uploaded a blob or file!');
+                });
+              }
+  else{console.log("imgage not updated")}
+}
+
+    function updateSeenList()
+    {
+
+        const seenUser = GetUniqname();
+        const seenCount = ref(database, "users/" + currentUser + "/seenCount");
+
+        get(seenCount).then((snapshot) => {
+            if (snapshot.exists())
+            {
+                const seenNum = snapshot.val();
+
+                const newNum = seenNum + 1;
+
+                //update seen count
+                update(ref(database, "users/" + currentUser), {
+                    seenCount: newNum
+                });
+
+                const seenList = ref(database, "users/" + currentUser + "/Seen/" + (snapshot.val() + 1));
+
+                //update seen list
+                set(seenList, seenUser);
+
+            }
+            else
+            {
+                const newNum = 0;
+
+                //create new seen count
+                update(ref(database, "users/" + currentUser), {
+                    seenCount: newNum
+                });
+
+                const seenList = ref(database, "users/" + currentUser + "/Seen/0");
+
+                //update seen list
+                set(seenList, seenUser);
+            }
+        });
+
+        console.log("Seen: " + seenUser);
+
+    }
+
+//expect errors until db is updated
+const dataInst = getDatabase();
+const dabado = getDatabase();
+const checkNew = ref(dataInst, 'users/' + currentUserName);
+onValue(checkNew, (snapshot) => {
+  const someData = snapshot.val();
+  let newVar = someData['isNew'];
+  let newFriend = someData["friendsPending"];
+  console.log("isNew: " + newVar + " friendpending: "+ newFriend)
+  if (newVar == true){
+    showHideS();
+    console.log("isNew: " + newVar + " friendpending: "+ newFriend)
+    const loadFriendChange = ref(dabado, 'users/' + newFriend);
+      onValue(loadFriendChange, (snapshot) => {
+      const data = snapshot.val();
+      console.log("data from loadFriendChange")
+      console.log(data)
+      handleNewFriend(data);
+      loadPending(data);
+      getNewFrenData(data);
+      getEmail(data);
+      
+    });
+  }
+  else{
+    //ignore
+  }
+});
+function addFren2Seen()    {
+          const dadabass = getDatabase();
+          const seenUser = AddFriendUniqname;
+          const seenCount = ref(dadabass, "users/" + currentUserName + "/seenCount");
+
+          get(seenCount).then((snapshot) => {
+              if (snapshot.exists())
+              {
+                  const seenNum = snapshot.val();
+
+                  const newNum = seenNum + 1;
+
+                  //update seen count
+                  update(ref(dadabass, "users/" + currentUser), {
+                      seenCount: newNum
+                  });
+
+                  const seenList = ref(dadabass, "users/" + currentUser + "/Seen/" + (snapshot.val() + 1));
+
+                  //update seen list
+                  set(seenList, seenUser);
+
+              }
+              else
+              {
+                  const newNum = 0;
+
+                  //create new seen count
+                  update(ref(dadabass, "users/" + currentUser), {
+                      seenCount: newNum
+                  });
+
+                  const seenList = ref(dadabass, "users/" + currentUser + "/Seen/0");
+
+                  //update seen list
+                  set(seenList, seenUser);
+                  }
+                  let checkUser = GetUniqname();
+                  console.log(checkUser + " " + seenUser);
+                  if (seenUser == checkUser){
+                    //window.location.reload(false);
+                    console.log("I do a reload")
+                  }
+              });
+              
+          }
+
+
+
+
+//monitors and controls thumbsDown
+var nextImg = document.querySelector('#thumbsDown');
+nextImg.addEventListener("click", updateSeenList);
+nextImg.addEventListener("click", noFunction);
+nextImg.addEventListener("click", loadNextImg);
+nextImg.addEventListener("click", incrementIt);
+
+
+//read from friend pending array to friend Pending unit
+
+//monitors and controls thumbsUp
+var frenPend = document.querySelector('#thumbsUp');
+frenPend.addEventListener("click", updateSeenList);
+frenPend.addEventListener("click", yesFunction);
+frenPend.addEventListener("click", loadImg);
+frenPend.addEventListener("click", updatefriendArray);
+frenPend.addEventListener("click", noFunction);
+frenPend.addEventListener("click", loadNextImg);
+frenPend.addEventListener("click", showHide); 
+frenPend.addEventListener("click", incrementIt);
+
+
+var greenCheck = document.querySelector('#greenCheck');
+greenCheck.addEventListener("click", AddFriend);
+greenCheck.addEventListener("click", addFren2Seen);
+greenCheck.addEventListener("click", deletefriendArray);
+greenCheck.addEventListener("click", hideShow);
+greenCheck.addEventListener("click", showHide);
+greenCheck.addEventListener("click", load2Img);
+
+
+
+
+
+var redX = document.querySelector('#redX');
+redX.addEventListener("click", deletefriendArray);
+redX.addEventListener("click", hideShow);
+
+var loadProfilebtn = document.querySelector('#profileClick')
+loadProfilebtn.addEventListener('click', loadProfile)
+
+var settingsBtn = document.querySelector('#settingsClick')
+settingsBtn.addEventListener('click',loadSettings)
+
+//var friendsChatbtn = document.querySelector('#friendsChatClick')
+//friendsChatbtn.addEventListener('click', document.getElementById("chatbox").style.display = "none")
+
+var updateSettingsBtn = document.querySelector('#updateProfileBtn')
+updateSettingsBtn.addEventListener('click',updateSettings)
+
+  </script>
+
+</body>
+
+</html> 

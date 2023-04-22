@@ -1,0 +1,113 @@
+<!DOCType html>
+<html lang = 'en'> 
+  <head>
+    <title>friendUP</title>
+    <link href="loginPage.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/564x/c6/b8/d4/c6b8d40a0af2b06eafc9b8c2d7ba30d2.jpg">
+   </head>
+  <body>
+    <div class="left-right">
+    <img src= catpic.jfif width="300" height="400" alt="cat" class="center">
+    
+<div class="friendUp_form">
+<p> 
+<!--<label type = "text"> Login</label>-->
+<p style="font-size:60px" class="friendUpText">friendUp!</p> 
+</p>
+
+
+  <div class="login">
+  <label style="font-size:25px">Email:</label><br>
+  <input type="text" id="fname" name="fname" ><br>
+  <br> <label style="font-size:25px">Password:</label><br>
+  <input type="password" id="password" name="password"><br><br>
+  <button id="loginBtn">Log In</button> 
+  </div> 
+
+  <div class="sign up">
+  <br> <label>Login using your Umich Profile</label><br><br>
+  <label> Don't have an account?</label><br> <br>
+  <label>Register yours today!</label><br><br>
+  <button id="regBtn" onclick="location.href = 'signUpPage.html'">Register Your Account</button>
+  </div>
+
+  <div>
+    <br> <label>Create an account then friendUp Yor</label><br><br>
+    <label>Open a new tab and login as Yor to see friendUp in action</label><br>
+    <label> Yforger@gmail.com :: 123456</label><br> <br>
+    </div>
+
+</div>
+</div>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
+    authDomain: "friendup-74935.firebaseapp.com",
+    projectId: "friendup-74935",
+    storageBucket: "friendup-74935.appspot.com",
+    messagingSenderId: "97865803459",
+    appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
+    measurementId: "G-JHX6HNC0ST"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  import {getDatabase, set, ref, get} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+
+
+  var loginBtn = document.querySelector('#loginBtn')
+  var registerBtn = document.querySelector('#regBtn')
+
+  function checkLogin(){
+    
+    var getUsername = document.getElementById('fname').value  
+    var getPassword = document.getElementById('password').value
+    
+    const auth = getAuth();   
+    
+    signInWithEmailAndPassword(auth,getUsername,getPassword)
+    .then((userCredential) => {
+      const user = userCredential.user      
+      sessionStorage.setItem('email',getUsername)     
+      sessionStorage.setItem('un',getUsername.slice(0,getUsername.indexOf('@')))
+      window.location.href = 'mainPage.html'
+    })
+    .catch((error)=>{
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert("Unsuccessful log in attempt please try again")
+      console.log(errorMessage)
+    });    
+  }
+  loginBtn.addEventListener('click', checkLogin)
+  
+</script>
+
+</body>
+
+<!--<font color="blue">  
+  JavaTpoint   <br>  
+  </font>  
+  <font color="green">  
+  Html Tutorial   <br>  
+  How to Change the Text Color in Html  
+  </font>  -->
+</html>
+
+<!--.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}-->

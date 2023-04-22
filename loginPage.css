@@ -1,0 +1,79 @@
+@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
+body {
+    background-color: #77dd77;
+}
+label { 
+    color: #90EE90;
+    border-radius: 4px;
+    
+}
+
+body {
+    text-align: center;
+    height: 100%;
+}
+p {
+    color: #90EE90;
+    font-family: 'Comfortaa'; 
+    font-size: 22px;
+}
+
+button {
+    transition-duration: 0.4s;
+    border: 2px solid #90EE90;
+    font-family: 'Oswald';
+    font-size: 20px;
+    border-radius: 4px;
+    /*border: 2px solid white;*/
+}
+
+button:hover {
+    /*This is if we wanted the opposite colors*/
+    /* color: #90EE90;
+    background-color: white; */
+   
+    color:black;
+    background-color: #90EE90;    
+}
+
+.friendUp_form {
+    font-family: 'Oswald';
+    width: 50%;
+    border-radius: 4px;
+    background-color:#003166;
+    margin-left: 20px;
+}
+
+input {
+    height: 30px;
+    width: 300px;
+}
+
+.left-right{
+    display: flex;
+    margin: 20px;
+    height: 95%;
+}
+.center {
+    height: 100%;
+    width: 50%;
+}
+
+html{
+    height: 100%;
+}
+
+.friendUpText{
+    height: 20%;
+}
+
+img{
+    border-radius: 4px;
+}
+
+label
+{
+    font-size: 20px;
+}

@@ -1,0 +1,60 @@
+.incomingMessage 
+{
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.outgoingMessage {
+    border: 2px solid #dedede;
+    border-color: #ccc;
+    background-color: #90EE90;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.incomingMessage::after 
+{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.outgoingMessage::after 
+{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.incomingMessage img {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.outgoingMessage img {
+    float: right;
+    width: 60px;
+    height: 60px;
+    margin-left: 20px;
+    margin-right: 0;
+    border-radius: 50%;
+}
+
+.time-right 
+{
+    float: right;
+    color: #aaa;
+}
+
+.time-left 
+{
+    float: left;
+    color: #999;
+}

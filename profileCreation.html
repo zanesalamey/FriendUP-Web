@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="profile.css" rel="stylesheet" type="text/css" />
+
+
+<div class="container-xl px-4 mt-4">
+    <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js"></script>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-4 split left">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profile Picture</div>
+                <div class="card-body text-center body-left">
+                    <input type="file" id="profile_picture_input" accept="image/jpg, image/png">
+                    <div id="profile_picture"></div>
+                    
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                                
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4 split right body-right">
+                <div class="card-header">Account Details</div>
+                <div class="card-body">
+                    
+                    <form>
+                       
+
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1 input-title" for="inputFirstName">First name</label>
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="Pumpkin">
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1 input-title" for="inputLastName">Last name</label>
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Pie">
+                            </div>
+                        </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (major)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1 input-title" for="inputMajor"">Major</label>
+                                <input class="form-control" id="inputMajor" type="text" placeholder="Enter Major">
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1 input-title" for="inputLocation">Location</label>
+                                <input class="form-control" id="inputLocation" type="text" placeholder="Dearborn, Michigan">
+                            </div>
+                        </div>
+                        <!-- Form Group (description)-->
+                        <div class="mb-3">
+                            <label class="small mb-1 input-title" for="inputDescription">Description</label>
+                            <input class="form-control" id="inputDescription" type="text" placeholder="About me">
+                        </div>
+                        <!-- Form Row-->
+   
+                        <!-- Save changes button-->
+                        <br><br><br><input id="saveProfileBtn" class="btn btn-primary" type="button" value="Next" />
+                        
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+  
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+        import { getStorage,  uploadBytes, getDownloadURL, ref as sRef  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
+      
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
+          authDomain: "friendup-74935.firebaseapp.com",
+          projectId: "friendup-74935",
+          storageBucket: "friendup-74935.appspot.com",
+          messagingSenderId: "97865803459",
+          appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
+          measurementId: "G-JHX6HNC0ST"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+        var email = "Lforger@gmail.com"; //document.getElementById("username").value
+        //var password = document.getElementById("password").value
+        var uniqname = "0";
+        
+        const db = getDatabase();
+        const userTableGet = ref(db, uniqname);
+        onValue(userTableGet, (snapshot) => {
+        
+        const data = snapshot.val();
+        pageOnLoad(data);
+      });
+      function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+
+      //saves info to database
+      function saveProfile()
+      {
+         var firstName =  document.getElementById("inputFirstName").value 
+         var lastName = document.getElementById("inputLastName").value
+         var location = document.getElementById("inputLocation").value
+         var major = document.getElementById("inputMajor").value   
+         var description = document.getElementById("inputDescription").value 
+        set(ref(db, "users/" + sessionStorage.getItem('un')), {
+          FN:firstName,
+          LN:lastName,
+          Location:location,
+          Major:major,
+          Description:description,
+          Interests:"",
+          Username: sessionStorage.getItem('un'),
+          email: sessionStorage.getItem('email'),
+          uniqname: sessionStorage.getItem('un'),
+          isNew: false,
+          friendsPending: "" 
+        });
+        let imagePull = sessionStorage.getItem('email');
+        var upadateImg = document.getElementById("profile_picture_input").files[0];
+        
+        if(upadateImg != undefined){
+        uploadBytes(sRef(storage, imagePull), upadateImg).then((snapshot) => {
+                          console.log('Uploaded a blob or file!');
+                      });
+                    }
+        else{console.log("imgage not updated")}
+    
+        delay(2000).then(() => window.location.href = "interests.html");
+
+      }
+      
+      var saveProfileBtn = document.querySelector('#saveProfileBtn')
+      saveProfileBtn.addEventListener('click', saveProfile)
+      
+      </script>  
+</div>
+
+
+  
+
+
+</html> 
